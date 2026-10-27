@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="img/builda-icon.png">
+<title>The Gate Is Open</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+img { max-width: 100%; }
+/* Layout: a long-form reading column (about 66 characters) with figures that widen to 1040px; each part opens with a large mono part number because the essay really is a sequence. */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #12141a;
+  --muted: #5a6070;
+  --rule: #dfe2e8;
+  --cobalt: #2f4bff;
+  --cobalt-soft: #e3e8ff;
+  --gate: #5d6577;
+  --orange: #f29a1f;
+  --orange-ink: #a85a06;
+  --orange-soft: #fdecd4;
+  --display: "Unbounded", "Avenir Next", "Segoe UI", sans-serif;
+  --body: "Newsreader", Georgia, "Times New Roman", serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d0f14; --surface: #161921; --ink: #eceef3; --muted: #9aa1b1; --rule: #262a35;
+    --cobalt: #7d90ff; --cobalt-soft: #1d2346; --gate: #6c7385;
+    --orange: #ffab3d; --orange-ink: #ffbf6b; --orange-soft: #33240f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d0f14; --surface: #161921; --ink: #eceef3; --muted: #9aa1b1; --rule: #262a35;
+  --cobalt: #7d90ff; --cobalt-soft: #1d2346; --gate: #6c7385;
+  --orange: #ffab3d; --orange-ink: #ffbf6b; --orange-soft: #33240f;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 1.2rem; line-height: 1.68;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.page { max-width: 1040px; margin: 0 auto; padding-block: 48px 80px; }
+.col { max-width: 680px; margin-left: auto; margin-right: auto; min-width: 0; }
+.wide { max-width: 1040px; margin-left: auto; margin-right: auto; }
+
+.kicker { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+h1 {
+  font-family: var(--display); font-weight: 800; font-size: clamp(2.2rem, 6.4vw, 4.2rem);
+  line-height: 1.02; letter-spacing: -0.03em; margin: 16px 0 20px; text-wrap: balance;
+}
+h1 span { color: var(--cobalt); }
+.dek { font-size: 1.35rem; line-height: 1.5; color: var(--muted); margin: 0 0 20px; text-wrap: pretty; }
+.byline { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 20px; }
+
+.part { margin-top: 72px; }
+.part-no { font-family: var(--mono); font-weight: 600; font-size: 0.85rem; color: var(--cobalt); letter-spacing: 0.08em; }
+h2 {
+  font-family: var(--display); font-weight: 700; font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+  line-height: 1.15; letter-spacing: -0.02em; margin: 8px 0 18px; text-wrap: balance;
+}
+h3 { font-family: var(--display); font-weight: 700; font-size: 1.08rem; letter-spacing: -0.01em; margin: 34px 0 8px; }
+p { margin: 0 0 1.1em; }
+a { color: var(--cobalt); text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; border-radius: 2px; }
+strong { font-weight: 600; }
+code { font-family: var(--mono); font-size: 0.82em; background: var(--cobalt-soft); padding: 1px 6px; border-radius: 4px; }
+ul, ol { padding-left: 1.25em; margin: 0 0 1.1em; }
+li { margin-bottom: 0.4em; }
+blockquote { margin: 28px 0; padding-left: 20px; border-left: 3px solid var(--cobalt); font-style: italic; color: var(--ink); }
+blockquote cite { display: block; font-style: normal; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
+
+.ic { display: inline-block; width: 1.05em; height: 1.05em; vertical-align: -0.16em; background: currentColor;
+  -webkit-mask: var(--i) center / contain no-repeat; mask: var(--i) center / contain no-repeat; }
+.ic-img { display: inline-block; width: 1.05em; height: 1.05em; vertical-align: -0.16em; }
+
+figure { margin: 40px auto; }
+figure img.shot { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--rule); }
+figcaption { font-family: var(--mono); font-size: 0.78rem; line-height: 1.55; color: var(--muted); margin-top: 10px; max-width: 680px; }
+.wide figcaption { margin-left: auto; margin-right: auto; }
+
+.shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.shots figure { margin: 0; }
+.shots .label { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 700; font-size: 0.88rem; margin-bottom: 8px; }
+@media (max-width: 640px) { .shots { grid-template-columns: 1fr; } }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); margin: 28px 0; }
+table.data { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 0.98rem; line-height: 1.45; }
+table.data th, table.data td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--rule); }
+table.data tr:last-child td { border-bottom: 0; }
+table.data th { font-family: var(--mono); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+table.data td:first-child { font-family: var(--display); font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
+table.data td:first-child .ic, table.data td:first-child .ic-img { margin-right: 8px; }
+table.data tr.builda td { background: var(--orange-soft); }
+.num { font-variant-numeric: tabular-nums; }
+table.data td.num { white-space: nowrap; }
+
+.chart { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 18px 18px 12px; }
+.chart-title { font-family: var(--display); font-weight: 700; font-size: 0.95rem; margin: 0 0 6px; }
+.chart svg { display: block; width: 100%; height: auto; }
+.scroll-x { overflow-x: auto; }
+.scroll-x svg { min-width: 600px; }
+
+.stack { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.stack > div { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 18px; min-width: 0; }
+.stack h4 { font-family: var(--display); font-size: 0.9rem; margin: 0 0 12px; }
+.roles { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.roles li { margin: 0; font-family: var(--mono); font-size: 0.78rem; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--rule); }
+.stack .after .roles li { background: var(--cobalt-soft); border-color: transparent; }
+.stack .after .roles li.you { background: var(--cobalt); color: var(--bg); font-weight: 600; }
+@media (max-width: 640px) { .stack { grid-template-columns: 1fr; } }
+
+.cases { display: grid; gap: 14px; margin: 24px 0 28px; }
+.case { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 4px 18px; }
+.case .t { font-family: var(--mono); font-weight: 600; font-size: 0.82rem; color: var(--cobalt); padding-top: 4px; }
+.case h4 { font-family: var(--display); font-size: 1rem; margin: 0 0 4px; }
+.case p { margin: 0; font-size: 1.05rem; }
+@media (max-width: 560px) { .case { grid-template-columns: 1fr; } }
+
+pre { font-family: var(--mono); font-size: 0.82rem; line-height: 1.6; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0 0 1.2em; }
+pre .c { color: var(--muted); }
+
+.builda-part { border-top: 4px solid var(--orange); padding-top: 32px; }
+.builda-part .part-no { color: var(--orange-ink); }
+.brand { display: flex; align-items: center; gap: 12px; font-family: var(--display); font-weight: 800; font-size: 1.05rem; margin: 0 0 16px; }
+.brand img { width: 44px; height: 44px; border-radius: 11px; }
+
+.sources { border-top: 1px solid var(--rule); margin-top: 64px; padding-top: 20px; font-family: var(--mono); font-size: 0.78rem; line-height: 1.6; color: var(--muted); }
+.sources ul { padding-left: 18px; }
+.sources a { color: var(--muted); }
+</style>
+</head>
+<body>
+<article class="page">
+  <header class="col">
+    <div class="kicker">Long read · 27 October 2026 · about 15 minutes</div>
+    <h1>The gate is open: how AI is <span>rebuilding game development</span> from the bottom up</h1>
+    <p class="dek">For decades, making and publishing a game took money, months of training, and the patience to clear every store’s paperwork. AI has collapsed the first two. The third is changing now.</p>
+    <div class="byline"><span>For anyone with a game idea</span><span>Sources at the end</span></div>
+  </header>
+
+  <div class="col">
+    <p style="margin-top:40px">Ask anyone who shipped a game before 2023 what the hardest part was, and the answer is rarely the idea. It is everything around the idea. You had to learn an engine. You had to learn to code, or find someone who could. You needed art, sound, and music, which are three more careers. Then, once the game worked, you had to get it past the gatekeepers: store accounts, fees, tax forms, reviews, testers, and waiting periods.</p>
+    <p>Each step filtered people out. The filter didn’t measure talent. It measured time, money, and access. A teenager with a brilliant design and no laptop, a parent with two free hours a night, or a designer in a country where a $99 yearly fee is a week’s pay could all see the finish line. Very few reached it.</p>
+    <p>That filter is breaking. This article looks at what the old barriers actually were, what AI changed, what people are building with it right now, and where publishing goes next.</p>
+  </div>
+
+  <!-- PART 1 -->
+  <section class="col part" aria-labelledby="p1">
+    <div class="part-no">PART 1</div>
+    <h2 id="p1">The gatekeepers: what publishing used to demand</h2>
+    <p>Every major store built its rules for good reasons: fraud, malware, spam, and tax law. But stacked together, those rules became a wall that solo creators had to climb before a single player could try their work. Here is what a first-time individual developer faces today on the big four.</p>
+  </section>
+
+  <div class="col">
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th scope="col">Store</th><th scope="col">Cost to start</th><th scope="col">What stands between you and launch</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="ic" style="--i:url(img/icons/steam.svg)" aria-hidden="true"></span>Steam</td>
+            <td class="num">$100 per game</td>
+            <td>Identity, bank, and tax paperwork. A 30-day wait between paying the fee and your first release. A public “coming soon” page for at least two weeks. A 1 to 5 day review of your store page and build.</td>
+          </tr>
+          <tr>
+            <td><span class="ic" style="--i:url(img/icons/googleplay.svg)" aria-hidden="true"></span>Google Play</td>
+            <td class="num">$25 once</td>
+            <td>New personal accounts must run a closed test with at least 12 testers, opted in for 14 days in a row, before they can even apply for production access.</td>
+          </tr>
+          <tr>
+            <td><span class="ic" style="--i:url(img/icons/appstore.svg)" aria-hidden="true"></span>App Store</td>
+            <td class="num">$99 every year</td>
+            <td>An Apple Developer Program membership, renewed yearly. Company accounts need a D-U-N-S number, which can take about a week. Every build and update goes through App Review.</td>
+          </tr>
+          <tr>
+            <td><img class="ic-img" src="img/icons/microsoft.svg" alt="" aria-hidden="true">Xbox</td>
+            <td class="num">Free to apply</td>
+            <td>ID@Xbox asks you to submit a game concept for approval, sign licensing agreements, and order dev kits. Microsoft says to plan for at least two weeks before your development setup is ready.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <figure class="wide">
+    <div class="shots">
+      <figure><div class="label"><span class="ic" style="--i:url(img/icons/steam.svg)" aria-hidden="true"></span>Steam Direct</div><img class="shot" src="img/ui/steam-direct.jpg" alt="Screenshot of the Steamworks page Joining the Steamworks Distribution Program, listing steps such as signing digital paperwork, paying the app deposit fee, and waiting through the review."></figure>
+      <figure><div class="label"><span class="ic" style="--i:url(img/icons/googleplay.svg)" aria-hidden="true"></span>Google Play Console</div><img class="shot" src="img/ui/play-testing.jpg" alt="Screenshot of the Play Console Help page App testing requirements for new personal developer accounts."></figure>
+      <figure><div class="label"><span class="ic" style="--i:url(img/icons/apple.svg)" aria-hidden="true"></span>Apple Developer Program</div><img class="shot" src="img/ui/apple-enroll.jpg" alt="Screenshot of the Apple Developer Program enrollment page, titled Become a member, with a Start your enrollment button."></figure>
+      <figure><div class="label"><img class="ic-img" src="img/icons/microsoft.svg" alt="" aria-hidden="true">Microsoft Store</div><img class="shot" src="img/ui/ms-store.jpg" alt="Screenshot of the Microsoft Store developer page, titled Build exceptional apps for the Microsoft Store, with a Get started button."></figure>
+    </div>
+    <figcaption>The real front doors. Each one leads to accounts, agreements, and checks before a player sees anything. Screenshots taken 27 October 2026.</figcaption>
+  </figure>
+
+  <div class="col">
+    <p>None of these steps is unreasonable on its own. The problem is how they add up for one person. The Google Play rule is a good example. To publish on a new personal account, you need 12 real people to install a test build and stay opted in for two full weeks. If you are a solo creator without a community yet, finding those 12 people can take longer than making the game. Developers have a name for it: the “12-tester tax.”</p>
+    <p>Steam’s rules ask for patience instead. You pay, then you wait 30 days. Your store page must be public for two weeks before launch. That gives Valve time to confirm who you are, and it gives players time to wishlist your game. It also means the fastest possible first launch on Steam is about a month away from the day you decide to ship.</p>
+  </div>
+
+  <figure class="col">
+    <div class="chart">
+      <p class="chart-title">Minimum waits for a first-time individual developer</p>
+      <svg viewBox="0 0 640 210" role="img" aria-label="Bar chart of minimum waiting periods: Steam 30 days from paying the fee to first release, Google Play 14 days of closed testing, ID@Xbox at least 14 days to a ready development setup." font-family="JetBrains Mono, Menlo, monospace">
+        <g stroke="var(--rule)">
+          <line x1="150" y1="20" x2="150" y2="170"/><line x1="303.3" y1="20" x2="303.3" y2="170"/><line x1="456.7" y1="20" x2="456.7" y2="170"/><line x1="610" y1="20" x2="610" y2="170"/>
+        </g>
+        <g fill="var(--muted)" font-size="12" text-anchor="middle">
+          <text x="150" y="190">0</text><text x="303.3" y="190">10 days</text><text x="456.7" y="190">20 days</text><text x="610" y="190">30 days</text>
+        </g>
+        <g fill="var(--ink)" font-size="14" text-anchor="end">
+          <text x="138" y="52">Steam</text><text x="138" y="102">Google Play</text><text x="138" y="152">ID@Xbox</text>
+        </g>
+        <rect x="150" y="32" width="460" height="28" rx="4" fill="var(--gate)"/>
+        <rect x="150" y="82" width="214.7" height="28" rx="4" fill="var(--gate)"/>
+        <rect x="150" y="132" width="214.7" height="28" rx="4" fill="var(--gate)"/>
+        <g fill="var(--bg)" font-size="13" font-weight="600">
+          <text x="162" y="51">30 days: fee to first release</text>
+          <text x="162" y="101">14 days: closed test</text>
+          <text x="162" y="151">14+ days: onboarding</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>These waits come before review time, and they don’t count the time it takes to build the game. Sources: Steam Direct, Play Console Help, Xbox developer docs. Chart made for this article.</figcaption>
+  </figure>
+
+  <div class="col">
+    <p>Some doors have opened. In September 2025 Microsoft made Microsoft Store registration free for individual developers, with a quick ID and selfie check instead of a credit card. But that is the exception. The general pattern still holds: the bigger the store, the more paperwork and waiting stand between a finished game and its first player.</p>
+  </div>
+
+  <!-- PART 2 -->
+  <section class="col part" aria-labelledby="p2">
+    <div class="part-no">PART 2</div>
+    <h2 id="p2">The other wall: you had to become six people</h2>
+    <p>The store wall only mattered if you made it to the end. Most people never did, because of the wall before it: the skills.</p>
+    <p>A small game needs a surprising number of jobs. Someone designs the rules. Someone programs them. Someone draws characters and backgrounds, animates them, and makes the UI readable. Someone writes music and makes sound effects. Someone tests, finds bugs, and balances the difficulty. Studios hire a person for each of these. A solo developer has to be all of them.</p>
+  </section>
+
+  <div class="col">
+    <h3><span class="ic" style="--i:url(img/icons/unity.svg)" aria-hidden="true"></span> <span class="ic" style="--i:url(img/icons/unrealengine.svg)" aria-hidden="true"></span> <span class="ic" style="--i:url(img/icons/godotengine.svg)" aria-hidden="true"></span> The engine tax</h3>
+    <p>Before any of that, you choose an engine. <strong>Unity</strong> means learning C# and a large editor full of components, prefabs, and render pipelines. <strong>Unreal</strong> is powerful but expects C++ or its Blueprints visual scripting, plus a capable PC. <strong>Godot</strong> is free and lighter, with its own language, GDScript, and its own way of thinking in scenes and nodes.</p>
+    <p>All three are excellent tools. All three also take months of learning before most people can build a game loop that feels good: movement that responds well, collisions that don’t break, a camera that follows, menus that work, and a save system that doesn’t lose progress. Tutorials help, but they teach one feature at a time. The hard part is wiring dozens of features together without everything breaking.</p>
+    <p>This is where most hobby projects die. The idea is fine. The person simply runs out of evenings before the game becomes playable.</p>
+  </div>
+
+  <!-- PART 3 -->
+  <section class="col part" aria-labelledby="p3">
+    <div class="part-no">PART 3</div>
+    <h2 id="p3">What AI changed: one person, a full team of tools</h2>
+    <p>Generative AI didn’t remove the jobs. It made each job something one person can direct instead of something one person must master. That shift is the whole story.</p>
+  </section>
+
+  <figure class="col">
+    <div class="stack">
+      <div>
+        <h4>Before: the jobs a small game needs</h4>
+        <ul class="roles">
+          <li>Game designer</li><li>Programmer</li><li>2D or 3D artist</li><li>Animator</li><li>Composer</li><li>Sound designer</li><li>QA tester</li><li>Store and backend admin</li>
+        </ul>
+      </div>
+      <div class="after">
+        <h4>Now: one creator directing tools</h4>
+        <ul class="roles">
+          <li class="you">You: idea, taste, decisions</li><li>Coding agent</li><li>Image and sprite models</li><li>3D model generators</li><li>Music and SFX models</li><li>AI playtest bots</li><li>AI-ready publishing tools</li>
+        </ul>
+      </div>
+    </div>
+    <figcaption>The roles don’t disappear. They move from people you hire to tools you direct. Diagram made for this article.</figcaption>
+  </figure>
+
+  <div class="col">
+    <h3>Code: from writing it to describing it</h3>
+    <p>The biggest change is in programming. Coding agents such as <span class="ic" style="--i:url(img/icons/claude.svg)" aria-hidden="true"></span> Claude Code, <span class="ic" style="--i:url(img/icons/openai.svg)" aria-hidden="true"></span> OpenAI’s Codex, <span class="ic" style="--i:url(img/icons/githubcopilot.svg)" aria-hidden="true"></span> GitHub Copilot, and Cursor don’t just autocomplete a line. They read your whole project, plan a change, edit many files, run the game, read the errors, and try again. You describe the feature you want: “add a double jump with a short cooldown, and show it on the HUD.” The agent writes it in the engine’s language.</p>
+    <p>That changes who can build. You no longer need to know C# to make a Unity game, or GDScript to make a Godot one. You need to know what you want, test it, and say clearly what feels wrong. Web games became the fastest path of all, because a browser game built with plain JavaScript or <span class="ic" style="--i:url(img/icons/threedotjs.svg)" aria-hidden="true"></span> Three.js runs instantly. There’s no install and no export step, and the agent can check its own work.</p>
+
+    <h3>Art, sound, and testing</h3>
+    <p>The same thing happened to assets. Image models produce sprites, backgrounds, and UI art. 3D generators such as Tripo and Meshy turn a text prompt or a single image into a textured model. Tripo even sponsored the 2026 Vibe Jam. Music and sound models such as Suno and ElevenLabs produce soundtracks and effects in seconds. Developers now also use AI bots to play their games thousands of times and find balance problems that a few human testers would miss.</p>
+
+    <h3>How fast it spread</h3>
+    <p>This isn’t a fringe experiment. The numbers moved quickly.</p>
+    <ul>
+      <li>A Google Cloud survey of 615 developers, run with The Harris Poll in mid-2025, found that <strong>90%</strong> already used AI in their workflows.</li>
+      <li>The 2026 GDC State of the Game Industry survey of more than 2,300 professionals found that <strong>36%</strong> use generative AI tools as part of their job.</li>
+      <li>On Steam, which asks developers to disclose many kinds of AI-generated content, an analysis by Totally Human found <strong>7,818</strong> games with AI disclosures by July 2025, up from roughly 1,000 a year earlier. That is close to <strong>1 in 5</strong> games released in 2025.</li>
+      <li>The r/aigamedev community on <span class="ic" style="--i:url(img/icons/reddit.svg)" aria-hidden="true"></span> Reddit, where creators share AI-made games and workflows, had about <strong>92,000</strong> members by late October 2026, up about 471% in one year, according to GummySearch.</li>
+    </ul>
+  </div>
+
+  <figure class="col">
+    <div class="chart">
+      <p class="chart-title">Steam games that disclose generative AI use</p>
+      <svg viewBox="0 0 640 230" role="img" aria-label="Bar chart: about 1,000 Steam games disclosed AI use in mid-2024, and 7,818 did by July 2025." font-family="JetBrains Mono, Menlo, monospace">
+        <g stroke="var(--rule)">
+          <line x1="70" y1="190" x2="620" y2="190"/><line x1="70" y1="145" x2="620" y2="145"/><line x1="70" y1="100" x2="620" y2="100"/><line x1="70" y1="55" x2="620" y2="55"/><line x1="70" y1="10" x2="620" y2="10"/>
+        </g>
+        <g fill="var(--muted)" font-size="12" text-anchor="end">
+          <text x="60" y="194">0</text><text x="60" y="149">2,000</text><text x="60" y="104">4,000</text><text x="60" y="59">6,000</text><text x="60" y="14">8,000</text>
+        </g>
+        <rect x="160" y="167.5" width="130" height="22.5" rx="4" fill="var(--cobalt-soft)"/>
+        <rect x="400" y="14.1" width="130" height="175.9" rx="4" fill="var(--cobalt)"/>
+        <g fill="var(--ink)" font-size="15" font-weight="600" text-anchor="middle">
+          <text x="225" y="158">~1,000</text><text x="465" y="34" fill="var(--bg)">7,818</text>
+        </g>
+        <g fill="var(--muted)" font-size="13" text-anchor="middle">
+          <text x="225" y="214">Mid-2024</text><text x="465" y="214">July 2025</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>Disclosure is voluntary for some uses, so the real number is likely higher. Source: Totally Human analysis of the Steam catalog, reported by Video Games Chronicle. Chart made for this article.</figcaption>
+  </figure>
+
+  <!-- PART 4 -->
+  <section class="col part" aria-labelledby="p4">
+    <div class="part-no">PART 4</div>
+    <h2 id="p4">The proof: games built in hours, weekends, and days</h2>
+    <p>Claims about AI are cheap. Shipped games aren’t. Here are documented cases from the past two years, from a single evening to a Steam release. Where a number is self-reported, it is marked that way.</p>
+  </section>
+
+  <figure class="wide">
+    <img class="shot" src="img/ui/fly-pieter.jpg" alt="Screenshot of fly.pieter.com: a low-poly 3D airport runway and sky behind a dark panel that reads, A fun free-to-play MMO flight sim, 100% made with AI, without loading screens and GBs of updates, with a name field and a Join the game button.">
+    <figcaption>fly.pieter.com describes itself as “100% made with AI.” It runs in a browser tab with no download. Screenshot taken 27 October 2026.</figcaption>
+  </figure>
+
+  <div class="col">
+    <div class="cases">
+      <div class="case"><div class="t">~3 hours</div><div><h4>fly.pieter.com</h4><p>Pieter Levels, who had no game development background, built a multiplayer flight game in Three.js with Cursor and AI in about three hours, starting 22 February 2025. Levels reported reaching $1M in annual revenue run rate within 17 days, mostly from in-game ads and $29.99 jets. These figures are self-reported.</p></div></div>
+      <div class="case"><div class="t">2 evenings</div><div><h4>Grumbulus</h4><p>Two developers at GonzoML made a browser game where you play a storm cloud wrecking a city. Claude Code wrote about 15,000 lines of plain JavaScript, with procedural audio and parallax effects, and no engine.</p></div></div>
+      <div class="case"><div class="t">1 weekend</div><div><h4>A roguelike dungeon crawler</h4><p>Developer Barret Blake used Claude Code to build a web roguelike with procedural dungeons, turn-based combat, inventory, and several enemy types in about 48 hours.</p></div></div>
+      <div class="case"><div class="t">1 weekend</div><div><h4>XDA’s cat platformer</h4><p>Abhinav Raj at XDA Developers built a Pygame platformer without writing any of the code. It has patrolling pirate-cat enemies, moving platforms, and a retro CRT look. The agent added some polish, such as scanlines and limited ammo, without being asked.</p></div></div>
+      <div class="case"><div class="t">10 days</div><div><h4>Void Balls</h4><p>BigDevSoon ran eight Claude Code agents in parallel and used image and audio models for assets. The result is a bullet-hell platformer with 29,000 lines of C#, 173 scripts, 88 test files, 5 enemy types, and 15 power-ups.</p></div></div>
+      <div class="case"><div class="t">On Steam</div><div><h4>Catvivors and CODEX MORTIS</h4><p>AI researcher Przemek Chojecki shipped Catvivors, a $4.99 roguelite with 24 levels, to Steam Early Access in March 2026, built with Claude Code and Codex. The developer of CODEX MORTIS says all its code, sprites, and music were AI-generated. Its free demo drew 10,500 players with 71-minute average sessions and reached Steam’s Popular Upcoming list.</p></div></div>
+    </div>
+
+    <h3>The jam that made it a movement</h3>
+    <p>Levels then started a game jam with one unusual rule: most of the code had to be written by AI. The 2025 Vibe Coding Game Jam drew about 1,170 entries under an 80% AI rule. First place, worth $10,000, went to Tomas Bencko’s taxi game <em>The Great Taxi Assignment</em>. In 2026 the rule rose to 90%, and the results page reports 945 games and more than 1.37 million players.</p>
+  </div>
+
+  <figure class="wide">
+    <img class="shot" src="img/ui/vibejam.jpg" alt="Screenshot of the Cursor Vibe Jam 2026 site in a neon pixel style, reading The 2nd Annual Vibe Coding Game Jam, a game dev competition where 90% or more of the code must be written by AI, with the counters 945 games submitted and 1,371,566 players, and a Winners Announced badge.">
+    <figcaption>Vibe Jam 2026: 945 games and more than 1.37 million players, with at least 90% of each game’s code written by AI. Screenshot taken 27 October 2026.</figcaption>
+  </figure>
+
+  <div class="col">
+    <p>Look at what these cases have in common. Almost none of them took months. Many of them are web games. Most of their creators would not call themselves game programmers. And the hard part they describe isn’t the code. It is deciding what is fun, cutting what isn’t, and polishing the feel.</p>
+  </div>
+
+  <!-- PART 5 -->
+  <section class="col part" aria-labelledby="p5">
+    <div class="part-no">PART 5</div>
+    <h2 id="p5">What AI doesn’t fix</h2>
+    <p>It would be easy to stop the story here. But anyone planning to build this way should know where the new problems are.</p>
+  </section>
+
+  <div class="col">
+    <ul>
+      <li><strong>A prototype isn’t a product.</strong> “Built in three hours” usually means a playable core. Menus, saves, balance, performance on weak phones, and dozens of edge cases still take days or weeks. The XDA writer called AI “a catalyst, but not a crutch.”</li>
+      <li><strong>Sameness.</strong> When everyone uses the same models with similar prompts, games start to look alike. Taste, a clear point of view, and real playtesting are now the scarce skills.</li>
+      <li><strong>Player trust.</strong> In the GDC 2026 survey, 52% of developers said they believe generative AI is harming the industry. Some players avoid games that disclose AI use. Be open about what you used AI for, and make sure the result has care in it.</li>
+      <li><strong>Rights and data.</strong> In the Google Cloud survey, about 63% of developers raised concerns about data ownership. Check each tool’s license for commercial use, and keep your own source files.</li>
+      <li><strong>The discovery problem got worse.</strong> When making a game gets easier, more games get made. Steam alone saw about 19,000 releases in 2025. Building is no longer the bottleneck. Getting in front of players is.</li>
+    </ul>
+    <p>That last point leads to the real question. If one person can now make a game in a weekend, why does publishing it still take a month?</p>
+  </div>
+
+  <!-- PART 6 -->
+  <section class="col part builda-part" aria-labelledby="p6">
+    <div class="part-no">PART 6</div>
+    <h2 id="p6">The last gate: publishing built for the AI era</h2>
+    <div class="brand"><img src="img/builda-icon.png" alt="Builda app icon: an orange ring around a black mascot face with white eyes, on a blue square.">Builda</div>
+    <p>The old stores were designed for teams with producers, legal help, and a launch calendar. A new kind of platform is being designed for the creator who just finished a game with an AI agent on a Tuesday night. <a href="https://builda.game/">Builda</a> is one of the clearest examples.</p>
+    <p>Builda works in two halves. Players use the Builda app on iOS and Android to find and play games, and its Google Play listing shows more than 5 million downloads. Creators publish into that app through the Builda Creator Platform. Your game runs as a web build inside the app, so one upload reaches both phone platforms. You don’t submit a separate app to Apple or Google.</p>
+  </section>
+
+  <figure class="wide">
+    <img class="shot" src="img/ui/builda-home.jpg" alt="Screenshot of the Builda Creator Platform home page: a left sidebar with Home, Builder hub, and Upload, a banner of Builda mascots, the headline Connect your game with players around the world, and an Upload your game button.">
+    <figcaption>The Builda Creator Platform. The <strong>Upload</strong> button sits in the sidebar on every page. Screenshot taken 27 October 2026.</figcaption>
+  </figure>
+
+  <div class="col">
+    <h3>Made for your AI agent, not only for you</h3>
+    <p>What makes Builda different from older stores is that its tools are written for AI agents to read. The SDK guide has a <strong>Copy for AI</strong> button. It copies a single line that you paste into Claude Code, Codex, or another agent working in your project:</p>
+<pre>Install Builda game tools from https://ai.builda.game/agent/setup.md</pre>
+    <p>That file is a set of instructions for the agent. It tells the agent to find your project root, detect whether it is Godot, Unity, or HTML5, install Builda’s command-line tools into a <code>.builda-agent</code> folder, and run a self-check. From there the agent can add the SDK, test the game, and upload it. The instructions even tell the agent never to ask you for passwords or tokens.</p>
+  </div>
+
+  <figure class="wide">
+    <img class="shot" src="img/ui/builda-sdk.jpg" alt="Screenshot of the Builda SDK guide page with a Copy for AI button at the top right and a Copy for AI box containing the line: Install Builda game tools from https://ai.builda.game/agent/setup.md.">
+    <figcaption>The Builda SDK guide, with its <strong>Copy for AI</strong> button and the one-line instruction for your coding agent. Screenshot taken 27 October 2026.</figcaption>
+  </figure>
+
+  <div class="col">
+    <h3>What a session looks like</h3>
+    <p>Here is a realistic path from idea to upload, based on Builda’s published tools. Your agent does each step in your project:</p>
+<pre><span class="c"># 1. Install the Builda toolchain (the agent follows setup.md)</span>
+./.builda-agent/builda check
+<span class="c"># 2. Add the SDK: saves, ads, payments, leaderboards</span>
+./.builda-agent/builda sdk install
+<span class="c"># 3. Test in the browser with a mock Builda app</span>
+./.builda-agent/builda dev --web dist
+<span class="c"># 4. Sign in once, then upload</span>
+./.builda-agent/builda auth</pre>
+    <p>Two details matter for people building with AI. First, the SDK has a <strong>mock mode</strong>. It runs the full API in your browser, fakes the player, stores saves locally, and pops up test windows for payments and ads. Your agent can test everything without a phone. Second, every SDK call returns the same <code>{ ok, data }</code> or <code>{ ok, error }</code> shape and never throws. That kind of predictable interface is easy for an AI to use correctly.</p>
+
+    <h3>The hard parts, handled</h3>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th scope="col">Job</th><th scope="col">Traditional stores</th><th scope="col">Builda</th></tr></thead>
+        <tbody>
+          <tr><td>Reach phones</td><td>Separate iOS and Android builds, two store accounts, two reviews</td><td>One web build runs in the Builda app on both</td></tr>
+          <tr><td>Find players</td><td>Build your own audience with wishlists and marketing</td><td>Your game goes in front of the app’s built-in players</td></tr>
+          <tr><td>Saves and identity</td><td>Set up accounts, servers, and sync</td><td>Cloud saves and player identity come in the SDK</td></tr>
+          <tr><td>Earn money</td><td>Price the game, or integrate ad and payment SDKs yourself</td><td>In-app purchases and rewarded video ads through the SDK</td></tr>
+          <tr><td>Multiplayer</td><td>Pick, host, and pay for a networking stack</td><td>Builda Online, installed with one SDK flag</td></tr>
+          <tr><td>Work with AI</td><td>Human dashboards and long forms</td><td>Setup files and a CLI written for coding agents</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>There are tradeoffs. Your game must run as a web build, so very heavy 3D projects may need trimming. Most players are on phones, and Builda says about 75% of its audience is in East and Southeast Asia, so touch controls and translation matter. Your game lives inside Builda’s app and follows its policies and revenue terms. Read them before you commit. But for the kind of game AI makes fastest, a small, sharp, replayable web game, this path removes almost every gate that stopped people before.</p>
+  </div>
+
+  <!-- PART 7 -->
+  <section class="col part" aria-labelledby="p7">
+    <div class="part-no">PART 7</div>
+    <h2 id="p7">What this means if you have an idea</h2>
+    <p>The barrier to entry used to be a stack of skills, money, and paperwork. Now it is mostly taste and persistence. That is a better filter, and it is open to far more people.</p>
+    <p>If you want to try, here is a practical plan:</p>
+    <ol>
+      <li><strong>Start tiny.</strong> Pick one mechanic you can explain in a sentence. A great 5-minute game beats an unfinished epic.</li>
+      <li><strong>Build for the web first.</strong> Browser games are the fastest for an agent to build and test, and they publish to Builda directly.</li>
+      <li><strong>Direct, don’t just prompt.</strong> Play every build. Tell the agent exactly what feels wrong: too floaty, too slow, too hard on level 3.</li>
+      <li><strong>Make it yours.</strong> Use AI for speed, then spend your own time on the parts players remember: the feel, the look, the jokes, the surprise.</li>
+      <li><strong>Ship early, then listen.</strong> Upload a first version, watch how people play, and improve it every week. Real players are the best playtest bot there is.</li>
+    </ol>
+    <p>For most of gaming history, the question was “can you make a game?” For most people, the honest answer was no. Today the question is “what game do you want to make?” The tools to build it fit in a chat window. And with platforms like Builda, the path to players is no longer a month of waiting. It is a few commands your agent runs for you.</p>
+    <p>The gate is open. What you build is up to you.</p>
+  </section>
+
+  <div class="col">
+    <footer class="sources">
+      <strong>Sources</strong>
+      <ul>
+        <li><a href="https://partner.steamgames.com/steamdirect">Steamworks: Steam Direct</a> (fee, 30-day wait, coming-soon page, review)</li>
+        <li><a href="https://support.google.com/googleplay/android-developer/answer/14151465?hl=en-GB">Play Console Help: testing requirements for new personal accounts</a></li>
+        <li><a href="https://levelup.gitconnected.com/the-12-tester-tax-google-plays-closed-testing-rule-is-quietly-killing-solo-devs-2cea83c2e338">“The 12-tester tax” on Level Up Coding</a></li>
+        <li><a href="https://developer.apple.com/programs/enroll/">Apple Developer Program enrollment</a> and <a href="https://magora-systems.com/duns-number-apple-developer/">D-U-N-S timing guide</a></li>
+        <li><a href="https://devdocs.xbox.com/home/onboarding">Xbox developer docs: onboarding</a></li>
+        <li><a href="https://blogs.windows.com/windowsdeveloper/2025/09/10/free-developer-registration-for-individual-developers-on-microsoft-store/">Windows Developer Blog: free registration for individual developers</a> (10 September 2025)</li>
+        <li><a href="https://www.googlecloudpresscorner.com/2025-08-18-90-of-Games-Developers-Already-Using-AI-in-Workflows,-According-to-New-Google-Cloud-Research">Google Cloud: 90% of games developers use AI</a> (18 August 2025)</li>
+        <li><a href="https://www.businesswire.com/news/home/20260129438528/en/2026-State-of-the-Game-Industry-Report-Reveals-Widening-Effect-of-Layoffs-Broader-Perspectives-on-Generative-AI-Unionization-Tariffs-and-More">GDC 2026 State of the Game Industry</a></li>
+        <li><a href="https://www.videogameschronicle.com/news/steam-games-disclosing-generative-ai-use-are-up-800-this-year/">Video Games Chronicle: Steam AI disclosures</a> (Totally Human data)</li>
+        <li><a href="https://gummysearch.com/r/aigamedev/">GummySearch: r/aigamedev stats</a> (page updated 25 October 2026)</li>
+        <li><a href="https://levels.io/full-multiplayer-python-websockets-game-ai">levels.io: fly.pieter.com</a> and <a href="https://404media.co/this-game-created-by-ai-vibe-coding-makes-50-000-a-month-yours-probably-wont">404 Media on its revenue</a></li>
+        <li><a href="https://app.cinevva.com/news/2026-03-22-solo-devs-shipping-games-with-ai">Cinevva: solo devs shipping games with AI</a> (Void Balls, Grumbulus, the roguelike, Catvivors, CODEX MORTIS)</li>
+        <li><a href="https://www.xda-developers.com/i-vibe-coded-a-fully-functional-game-with-claude-code-and-it-doesnt-look-vibe-coded-at-all/">XDA Developers: a game vibe-coded with Claude Code</a> (31 March 2026)</li>
+        <li><a href="https://www.indiehackers.com/post/Uz0wHG4pI3KBOiFhP5YR">Indie Hackers: Vibe Jam 2025 results</a> and <a href="https://vibej.am/2026/">Vibe Jam 2026</a></li>
+        <li><a href="https://builda.game/">builda.game</a>, the <a href="https://ai.builda.game/game-sdk/sdk-guide.en.html">Builda SDK guide</a>, and <a href="https://ai.builda.game/agent/setup.md">Builda agent setup</a>, read 27 October 2026</li>
+        <li>Brand icons from Simple Icons; the Microsoft logo is drawn from its official colors. Icons and screenshots belong to their owners. Charts and diagrams made for this article.</li>
+      </ul>
+    </footer>
+  </div>
+</article>
+</body>
+</html>
